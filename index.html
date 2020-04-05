@@ -20,12 +20,6 @@
         .container {
             padding-top: 2rem;
         }
-        /*.table thead th, .table tbody th {
-            text-align: center;
-        }*/
-        td[data-latencia]::after {
-            content: attr(data-latencia) "s";
-        }
     </style>
   </head>
   <body>
@@ -123,16 +117,20 @@
                 });
                 /* Dependiendo de la latencia cambiamos el color de la fila */
                 document.querySelectorAll('td[data-latencia]').forEach(elemento => {
+                    elemento.innerText = elemento.dataset.latencia + "s";
                     if (elemento.dataset.latencia < 10) {
                         elemento.parentNode.style.color = 'darkgreen';
                     } else if (elemento.dataset.latencia < 60) {
                         elemento.parentNode.style.color = 'green';
-                    } else if (elemento.dataset.latencia < 120) {
-                        elemento.parentNode.style.color = 'darkorange';
-                    } else if (elemento.dataset.latencia < 300) {
-                        elemento.parentNode.style.color = 'darkred';
                     } else {
-                        elemento.parentNode.style.color = 'red';
+                        if (elemento.dataset.latencia < 120) {
+                            elemento.parentNode.style.color = 'darkorange';
+                        } else if (elemento.dataset.latencia < 300) {
+                            elemento.parentNode.style.color = 'darkred';
+                        } else {
+                            elemento.parentNode.style.color = 'red';
+                        }
+                        elemento.innerText = Math.floor(elemento.dataset.latencia / 60) + "m" + (elemento.dataset.latencia % 60) + "s";
                     }
                 });
             });
@@ -140,8 +138,6 @@
             smtp.value = localStorage.getItem('smtp');
             analizar.click();
         });
-        
-
     </script>
 
     <!-- JavaScript opcional -->
