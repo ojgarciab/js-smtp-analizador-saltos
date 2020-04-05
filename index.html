@@ -123,7 +123,6 @@
                 });
                 /* Dependiendo de la latencia cambiamos el color de la fila */
                 document.querySelectorAll('td[data-latencia]').forEach(elemento => {
-                    console.log(elemento);
                     if (elemento.dataset.latencia < 10) {
                         elemento.parentNode.style.color = 'darkgreen';
                     } else if (elemento.dataset.latencia < 60) {
